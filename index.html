@@ -10,6 +10,8 @@
     <div>
       <h1>Total: <span class="total"></span></h1>
       <button class="button">Incrementar</button>
+      <button class="abrir">Abrir</button>
+      <button class="fechar">Fechar</button>
     </div>
 
     <script>
@@ -25,24 +27,42 @@
         return { type: SOMAR, payload };
       }
 
-      const initialState = 10;
+      const initialState = 0;
 
-      function reducer(state = initialState, action) {
-        if (action.type === INCREMENTAR) {
-          return state + 1;
+      function contador(state = initialState, action) {
+        switch (action.type) {
+          case INCREMENTAR:
+            return state + 1;
+          case SOMAR:
+            return state + action.payload;
+          default:
+            return state;
         }
-        if (action.type === SOMAR) {
-          return state + action.payload;
-        }
-        return state;
       }
+
+      function modal(state = true, action) {
+        switch (action.type) {
+          case "ABRIR":
+            return true;
+          case "FECHAR":
+            return false;
+          default:
+            return state;
+        }
+      }
+
+      const reducer = Redux.combineReducers({ contador, modal });
 
       const store = Redux.createStore(reducer);
 
       function render() {
-        let state = store.getState();
+        let { contador, modal } = store.getState();
+        console.log(store.getState());
         const total = document.querySelector(".total");
-        total.innerText = state;
+        total.innerText = contador;
+
+        if (modal) total.style.display = "inline-block";
+        else total.style.display = "none";
       }
       render();
 
@@ -52,6 +72,14 @@
 
       const button = document.querySelector(".button");
       button.addEventListener("click", () => store.dispatch(incrementar()));
+      const openBtn = document.querySelector(".abrir");
+      openBtn.addEventListener("click", () =>
+        store.dispatch({ type: "ABRIR" })
+      );
+      const closeBtn = document.querySelector(".fechar");
+      closeBtn.addEventListener("click", () =>
+        store.dispatch({ type: "FECHAR" })
+      );
     </script>
   </body>
 </html>
