@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux</title>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <div class="box" style="background: blue; height: 50px"></div>
+
+    <script>
+      function reducer(state = 0, action) {
+        switch (action.type) {
+          case "MODIFICAR_WIDTH":
+            //NAO CRIAR EFEITOS COLATERAIS
+            // const box = document.querySelector(".box");
+            // box.style.width = action.payload + "px";
+            return action.payload;
+          default:
+            return state;
+        }
+      }
+
+      const store = Redux.createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__()
+      );
+      function render() {
+        const box = document.querySelector(".box");
+        box.style.width = store.getState() + "px";
+      }
+      store.subscribe(render);
+      store.dispatch({ type: "MODIFICAR_WIDTH", payload: 100 });
+      store.dispatch({ type: "MODIFICAR_WIDTH", payload: 20 });
+      store.dispatch({ type: "MODIFICAR_WIDTH", payload: 30 });
+    </script>
+  </body>
+</html>
