@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 01</title>
+    <script src="./immer.umd.production.min.js"></script>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <p class="aulasEl"></p>
+      <p class="alunoEl"></p>
+    </div>
+    <script type="module">
+      import store from "./store/configureStore.js";
+      import {
+        incrementar_tempo,
+        reduzir_tempo,
+        modificar_email,
+      } from "./store/aluno.js";
+      import {
+        completar_aula,
+        completar_curso,
+        resetar_curso,
+      } from "./store/aulas.js";
+
+      function render() {
+        const { aluno, aulas } = store.getState();
+
+        const aulasEl = document.querySelector(".aulasEl");
+        const alunoEl = document.querySelector(".alunoEl");
+
+        aulasEl.innerText = aulas.filter(
+          (aula) => aula.completa === true
+        ).length;
+
+        alunoEl.innerText = `${aluno.nome} - ${aluno.email} - ${aluno.diasRestantes}`;
+      }
+      render();
+
+      store.subscribe(render);
+
+      store.dispatch(incrementar_tempo());
+      store.dispatch(reduzir_tempo());
+      store.dispatch(modificar_email("lsblsousa@gmail.com"));
+      store.dispatch(completar_curso());
+      store.dispatch(resetar_curso());
+      store.dispatch(completar_aula(2));
+    </script>
+  </body>
+</html>
