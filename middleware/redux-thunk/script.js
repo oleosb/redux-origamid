@@ -62,7 +62,11 @@ function fetchUrl(url) {
     try {
       dispatch({ type: "FETCH_STARTED" });
       const data = await fetch(url).then((r) => r.json());
-      dispatch({ type: "FETCH_SUCCESS", payload: data, localStorage: "data" });
+      dispatch({
+        type: "FETCH_SUCCESS",
+        payload: data,
+        localStorage: "data",
+      });
     } catch (error) {
       dispatch({ type: "FETCH_ERROR", payload: error.message });
     }
