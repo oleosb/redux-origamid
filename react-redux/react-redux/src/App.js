@@ -7,7 +7,6 @@ function App() {
   const [password, setPassword] = React.useState("");
 
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.login.user);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,7 +35,6 @@ function App() {
           onChange={({ target }) => setPassword(target.value)}
         />
         <button>Enviar</button>
-        <p>{data?.email}</p>
       </form>
     </div>
   );
