@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../store/login";
+import styles from "./Header.module.css";
 
 const Header = () => {
   const { user, token } = useSelector((state) => state.login);
@@ -15,8 +15,8 @@ const Header = () => {
         onClick={() => dispatch(userLogout())}
         aria-label="Logout"
         className={`
-        ${styles.login} 
-        ${loading ? styles.loading : ""} 
+        ${styles.login}
+        ${loading ? styles.loading : ""}
         ${user.data ? styles.loaded : ""}
         `}
       ></button>

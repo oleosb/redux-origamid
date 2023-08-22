@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 /**
- *
+ * Cria um slice com uma função assíncrona
  * @param {Object} config
  * @param {String} config.name
  * @param {Object} config.initialState
- * @param {Object} config
+ * @param {Object} config.reducers
  * @param {Function} config.fetchConfig
  */
-
 const createAsyncSlice = (config) => {
   const slice = createSlice({
     name: config.name,
