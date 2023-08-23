@@ -1,13 +1,13 @@
 import React from 'react';
-import Photos from './Photos';
+import './App.css';
+import Filter from './Filter';
+import Products from './Products';
 
 function App() {
-  const [toggle, setToggle] = React.useState(true);
-
   return (
     <div>
-      <button onClick={() => setToggle(!toggle)}>Toggle</button>
-      {toggle && <Photos />}
+      <Filter />
+      <Products />
     </div>
   );
 }
